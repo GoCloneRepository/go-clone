@@ -19,11 +19,7 @@ sourceSets {
 	}
 }
 
-def commonModule = project(':common')
-
 dependencies {
-
-	compile(commonModule)
 
 	testCompile(
 		'junit:junit:4.11',
