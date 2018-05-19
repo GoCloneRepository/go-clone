@@ -11,9 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
-import com.kamino.clone.jms.event.Event;
-import com.kamino.clone.jms.message.MessageCodec;
-import com.kamino.clone.jms.settings.Jms;
+import com.kamino.go.jms.event.Event;
+import com.kamino.go.jms.message.MessageCodec;
+import com.kamino.go.jms.settings.Jms;
 
 public class JmsService {
 	private static final Logger log = LoggerFactory.getLogger(JmsService.class);

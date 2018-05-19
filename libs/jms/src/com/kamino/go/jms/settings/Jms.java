@@ -1,4 +1,4 @@
-package com.kamino.clone.jms.settings;
+package com.kamino.go.jms.settings;
 
 public interface Jms {
 

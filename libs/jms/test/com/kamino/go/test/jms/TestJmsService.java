@@ -21,10 +21,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.kamino.clone.jms.event.Event;
-import com.kamino.clone.jms.message.MessageCodec;
-import com.kamino.clone.jms.settings.Jms;
 import com.kamino.go.jms.JmsService;
+import com.kamino.go.jms.event.Event;
+import com.kamino.go.jms.message.MessageCodec;
+import com.kamino.go.jms.settings.Jms;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestJmsService {

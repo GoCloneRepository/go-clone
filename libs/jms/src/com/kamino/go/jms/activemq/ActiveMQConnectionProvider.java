@@ -1,4 +1,4 @@
-package com.kamino.clone.jms.activemq;
+package com.kamino.go.jms.activemq;
 
 import javax.jms.Connection;
 import javax.jms.JMSException;
@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.kamino.clone.jms.settings.Jms;
+import com.kamino.go.jms.settings.Jms;
 
 public class ActiveMQConnectionProvider implements Provider<Connection> {
 	private static final Logger log = LoggerFactory.getLogger(ActiveMQConnectionProvider.class);

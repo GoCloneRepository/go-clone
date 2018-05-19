@@ -11,8 +11,8 @@ import javax.jms.JMSException;
 
 import org.junit.Test;
 
-import com.kamino.clone.jms.activemq.ActiveMQConnectionProvider;
-import com.kamino.clone.jms.settings.Jms;
+import com.kamino.go.jms.activemq.ActiveMQConnectionProvider;
+import com.kamino.go.jms.settings.Jms;
 
 public class TestActiveMQConnectionProvider {
 	

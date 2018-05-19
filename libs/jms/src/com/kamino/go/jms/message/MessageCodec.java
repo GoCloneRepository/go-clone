@@ -1,8 +1,8 @@
-package com.kamino.clone.jms.message;
+package com.kamino.go.jms.message;
 
 import javax.jms.Message;
 
-import com.kamino.clone.jms.event.Event;
+import com.kamino.go.jms.event.Event;
 
 public interface MessageCodec {
 
