@@ -28,20 +28,18 @@ public class ActiveMQConnectionProvider implements Provider<Connection> {
 	@Override
 	public Connection get() {
 		try {
-			return createAndStart();
+			return createConnection();
 		} catch (JMSException e) {
-			log.info("Failed to create activemq connection");
+			log.error("Failed to create activemq connection");
 			throw new RuntimeException(e);
 		}
 	}
 
-	private Connection createAndStart() throws JMSException {
+	private Connection createConnection() throws JMSException {
 		String url = createConnectionUrl();
 		log.info("Creating ActiveMQ connection: {}", url);
 		ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(url);
-		Connection connection = factory.createConnection();
-		connection.start();
-		return connection;
+		return factory.createConnection();
 	}
 	
 	private String createConnectionUrl() {

@@ -2,7 +2,7 @@ package com.kamino.clone.jms.settings;
 
 public interface Jms {
 
-	public String app();
+	public String topic();
 
 	public String host();
 

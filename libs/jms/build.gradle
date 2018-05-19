@@ -2,6 +2,9 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'eclipse'
 
+repositories {
+    mavenCentral()
+}
 
 sourceSets {
 	main {
