@@ -4,6 +4,8 @@ import javax.jms.Connection;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
+import javax.jms.MessageConsumer;
+import javax.jms.MessageListener;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 
@@ -13,20 +15,27 @@ import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
 import com.kamino.go.jms.event.Event;
 import com.kamino.go.jms.message.MessageCodec;
+import com.kamino.go.jms.message.MessageHandler;
 import com.kamino.go.jms.settings.Jms;
 
-public class JmsService {
+public class JmsService implements MessageListener {
 	private static final Logger log = LoggerFactory.getLogger(JmsService.class);
 	
 	private Jms jms;
 	private Connection connection;
 	private MessageCodec codec;
+	private MessageHandler messageHandler;
 	
 	@Inject
-	public JmsService(Jms jms, Connection connection, MessageCodec codec) {
+	public JmsService(
+			Jms jms, 
+			Connection connection, 
+			MessageCodec codec,
+			MessageHandler messageHandler) {
 		this.jms = jms;
 		this.connection = connection;
 		this.codec = codec;
+		this.messageHandler = messageHandler;
 	}
 	
 	private Jms jms() {
@@ -41,15 +50,38 @@ public class JmsService {
 		return codec;
 	}
 
+	private MessageHandler getMessageHandler() {
+		return messageHandler;
+	}
+
 	public void start() {
+		startConnection();
+		startConsumer();
+	}
+	
+	private void startConnection() {
 		try {
 			getConnection().start();
 		} catch (JMSException e) {
 			log.error("Failed to start jms connection");
 			throw new RuntimeException(e);
 		}
-		
-		// TODO create consumer
+	}
+	
+	private void startConsumer() {
+		try {
+			Session session = createSession();
+			MessageConsumer consumer = createConsumer(session);
+			consumer.setMessageListener(this);
+		} catch (JMSException e) {
+			log.error("Failed to start message consumer");
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public void onMessage(Message message) {
+		getMessageHandler().onMessage(message);
 	}
 
 	public void stop() {
@@ -63,11 +95,12 @@ public class JmsService {
 	
 	public void post(Event event) {
 		log.debug("Posting event: {}", event);
-		Message message = getCodec().createMessage(event);
 		try {
-			createProducer().send(message);
-		} catch (JMSException e) {
-			log.error(String.format("Failed to send message %s", message), e);
+			Session session = createSession();
+			Message message = getCodec().createMessage(session, event);
+			createProducer(session).send(message);
+		} catch (Exception e) {
+			log.error(String.format("Failed to send message for event %s", event), e);
 		}
 	}
 	
@@ -75,12 +108,16 @@ public class JmsService {
 		return getConnection().createSession(false, Session.AUTO_ACKNOWLEDGE);
 	}
 	
-	private Destination createTopic() throws JMSException {
+	private Destination createTopic(Session session) throws JMSException {
 		return createSession().createTopic(jms().topic());
 	}
 	
-	private MessageProducer createProducer() throws JMSException {
-		return createSession().createProducer(createTopic());
+	private MessageProducer createProducer(Session session) throws JMSException {
+		return session.createProducer(createTopic(session));
 	}
 
+	private MessageConsumer createConsumer(Session session) throws JMSException {
+		return session.createConsumer(createTopic(session));
+	}
+	
 }
