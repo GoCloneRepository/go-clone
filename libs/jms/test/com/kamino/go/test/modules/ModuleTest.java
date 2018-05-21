@@ -1,8 +1,7 @@
 package com.kamino.go.test.modules;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 
