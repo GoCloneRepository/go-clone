@@ -2,6 +2,9 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'eclipse'
 
+repositories {
+    mavenCentral()
+}
 
 sourceSets {
 	main {
@@ -14,4 +17,22 @@ sourceSets {
 			srcDirs = ['test']
 		}
 	}
+}
+
+
+dependencies {
+
+    compile(
+    	'com.fasterxml.jackson.core:jackson-databind:2.9.5',
+    	'com.google.inject:guice:4.2.0',
+    	'org.slf4j:slf4j-api:1.7.25')
+    	
+    compile('org.apache.activemq:activemq-core:5.7.0') {
+    	exclude group: 'org.springframework'
+    }
+    	
+    testCompile(
+    	'junit:junit:4.12',
+		'org.mockito:mockito-core:1.9.5',
+		'org.hamcrest:hamcrest-all:1.3')
 }
