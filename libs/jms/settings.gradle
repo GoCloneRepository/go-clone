@@ -1,0 +1,5 @@
+rootProject.name = 'jms'
+
+include(':guice-utils')
+
+project(':guice-utils').projectDir = new File(settingsDir, '../guice-utils')
