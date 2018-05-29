@@ -27,6 +27,7 @@ public class RestServerStartupTask implements StartupTask {
 			getServer().start();
 		} catch (Exception e) {
 			log.error("Failed to start rest server", e);
+			throw new RuntimeException(e);
 		}
 	}
 

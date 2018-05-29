@@ -1,4 +1,4 @@
-package com.kamino.go.test.modules;
+package com.kamino.go.modules;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
@@ -27,6 +27,10 @@ public abstract class ModuleTest {
 	
 	protected <T> void assertProvides(Class<T> cl) {
 		assertThat(get(cl), is(not(nullValue())));
+	}
+	
+	protected <T> void assertSingleton(Class<T> cl) {
+		assertThat(get(cl), is(equalTo(get(cl))));
 	}
 
 	protected abstract Module[] getModules();

@@ -2,6 +2,7 @@ package com.kamino.go.jms;
 
 import com.google.inject.Guice;
 import com.google.inject.Module;
+import com.kamino.go.jms.message.MessageHandler;
 import com.kamino.go.jms.settings.Jms;
 import com.kamino.go.modules.DynamicModule;
 import com.kamino.go.modules.JmsModule;
@@ -12,6 +13,11 @@ public class JmsServiceBuilder {
 	
 	public JmsServiceBuilder() {
 		dynamicModule = new DynamicModule();
+	}
+	
+	public JmsServiceBuilder withMessageHandler(MessageHandler messageHandler) {
+		dynamicModule.addBinding(MessageHandler.class, messageHandler);
+		return this;
 	}
 	
 	public JmsServiceBuilder withJmsSettings(Jms jms) {

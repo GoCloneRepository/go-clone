@@ -1,5 +1,4 @@
 apply plugin: 'java'
-apply plugin: 'application'
 apply plugin: 'eclipse'
 
 repositories {
@@ -26,7 +25,7 @@ dependencies {
     	'com.google.inject:guice:4.2.0',
     	'org.slf4j:slf4j-log4j12:1.7.25')
     	
-    testCompile(
+    compile(
     	'junit:junit:4.12',
 		'org.mockito:mockito-core:1.9.5',
 		'org.hamcrest:hamcrest-all:1.3')

@@ -7,7 +7,7 @@ import com.google.inject.AbstractModule;
 import com.kamino.go.ServerProvider;
 import com.kamino.go.ServletContextHandlerProvider;
 
-public class ServerModule extends AbstractModule {
+public class RestServerModule extends AbstractModule {
 
 	@Override
 	protected void configure() {

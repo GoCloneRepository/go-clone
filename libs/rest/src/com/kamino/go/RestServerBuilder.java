@@ -1,11 +1,9 @@
 package com.kamino.go;
 
-import org.eclipse.jetty.server.Server;
-
 import com.google.inject.Guice;
 import com.google.inject.Module;
 import com.kamino.go.modules.DynamicModule;
-import com.kamino.go.modules.ServerModule;
+import com.kamino.go.modules.RestServerModule;
 import com.kamino.go.resources.ResourceProvider;
 import com.kamino.go.settings.Rest;
 
@@ -27,15 +25,15 @@ public class RestServerBuilder {
 		return this;
 	}
 
-	public Server build() {
+	public RestServer build() {
 		return Guice.createInjector(getModules())
-					.getInstance(Server.class);
+					.getInstance(RestServer.class);
 	}
 	
 	private Module[] getModules() {
 		return new Module[] {
 				dynamicModule,
-				new ServerModule()
+				new RestServerModule()
 		};
 	}
 }

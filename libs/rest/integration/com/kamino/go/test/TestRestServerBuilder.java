@@ -1,8 +1,8 @@
 package com.kamino.go.test;
 
-import org.eclipse.jetty.server.Server;
 import org.junit.Test;
 
+import com.kamino.go.RestServer;
 import com.kamino.go.RestServerBuilder;
 import com.kamino.go.resources.ResourceProvider;
 import com.kamino.go.settings.Rest;
@@ -11,7 +11,7 @@ public class TestRestServerBuilder {
 
 	@Test
 	public void build_createsRestServer() throws Exception {
-		Server server = new RestServerBuilder()
+		RestServer server = new RestServerBuilder()
 				.withRestSettings(new TestRest())
 				.withResourceProvider(new TestResourceProvider())
 				.build();

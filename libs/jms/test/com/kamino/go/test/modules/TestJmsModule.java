@@ -10,6 +10,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Module;
 import com.kamino.go.jms.settings.Jms;
 import com.kamino.go.modules.JmsModule;
+import com.kamino.go.modules.ModuleTest;
 
 public class TestJmsModule extends ModuleTest {
 
