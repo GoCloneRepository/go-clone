@@ -10,7 +10,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import com.kamino.go.filter.CorsFilter;
 import com.kamino.go.resources.DefaultResourceProvider;
+
+import io.swagger.v3.jaxrs2.integration.resources.AcceptHeaderOpenApiResource;
 
 public class TestDefaultResourceProvider {
 	private DefaultResourceProvider provider;
@@ -27,6 +30,16 @@ public class TestDefaultResourceProvider {
 	@Test
 	public void providesJacksonJsonProvider() {
 		assertProvides(JacksonJsonProvider.class);
+	}
+	
+	@Test
+	public void providesAcceptHeaderOpenApiResource() {
+		assertProvides(AcceptHeaderOpenApiResource.class);
+	}
+	
+	@Test
+	public void providesCorsFilter() {
+		assertProvides(CorsFilter.class);
 	}
 
 	private void assertProvides(Class<?> cl) {
