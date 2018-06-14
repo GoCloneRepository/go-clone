@@ -1,0 +1,58 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = ['src']
+		}
+        resources {
+                srcDirs= ['resources']
+        }
+	}
+	test {
+		java {
+			srcDirs = ['test']
+		}
+	}
+	integration {
+		java {
+			srcDirs = ['integration']
+		}
+	}
+}
+
+ext.jettyVersion = '9.4.10.v20180503'
+ext.glassfishVersion = '2.27'
+ext.swaggerVersion = '2.0.0'
+
+def guiceUtilsModule = project(':guice-utils')
+
+dependencies {
+
+	compile(
+		guiceUtilsModule)
+
+    compile(
+    	'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.9.0',
+    	"org.eclipse.jetty:jetty-server:$jettyVersion",
+    	"org.eclipse.jetty:jetty-servlet:$jettyVersion",
+    	"org.glassfish.jersey.core:jersey-server:$glassfishVersion",
+    	"org.glassfish.jersey.containers:jersey-container-servlet-core:$glassfishVersion",
+    	"org.glassfish.jersey.containers:jersey-container-jetty-http:$glassfishVersion",
+    	"org.glassfish.jersey.media:jersey-media-moxy:$glassfishVersion",
+    	"org.glassfish.jersey.inject:jersey-hk2:$glassfishVersion",
+    	"io.swagger.core.v3:swagger-jaxrs2:$swaggerVersion",
+    	"io.swagger.core.v3:swagger-jaxrs2-servlet-initializer:$swaggerVersion",
+    	'javax.xml.bind:jaxb-api:2.3.0',
+    	'org.slf4j:slf4j-log4j12:1.7.25')
+    	
+    testCompile(
+    	'junit:junit:4.12',
+		'org.mockito:mockito-core:1.9.5',
+		'org.hamcrest:hamcrest-all:1.3')
+}

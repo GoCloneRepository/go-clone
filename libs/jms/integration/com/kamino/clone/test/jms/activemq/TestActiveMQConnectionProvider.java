@@ -11,13 +11,13 @@ import javax.jms.JMSException;
 
 import org.junit.Test;
 
+import com.kamino.clone.test.jms.LocalJms;
 import com.kamino.go.jms.activemq.ActiveMQConnectionProvider;
-import com.kamino.go.jms.settings.Jms;
 
 public class TestActiveMQConnectionProvider {
 	
 	@Test
-	public void connection() throws JMSException {
+	public void providedConnectionStartAndStops() throws JMSException {
 		ActiveMQConnectionProvider provider = new ActiveMQConnectionProvider(new LocalJms());
 		
 		AtomicBoolean execeptionThrown = new AtomicBoolean(false);
@@ -35,22 +35,4 @@ public class TestActiveMQConnectionProvider {
 		assertThat(execeptionThrown.get(), is(false));
 	}
 	
-	private class LocalJms implements Jms {
-
-		@Override
-		public String topic() {
-			return "topic";
-		}
-
-		@Override
-		public String host() {
-			return "localhost";
-		}
-
-		@Override
-		public int port() {
-			return 61616;
-		}
-		
-	}
 }

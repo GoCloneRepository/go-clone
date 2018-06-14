@@ -1,20 +1,9 @@
 package com.kamino.go.test.jms;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyBoolean;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 
-import javax.jms.Connection;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageConsumer;
-import javax.jms.MessageProducer;
-import javax.jms.Session;
-import javax.jms.Topic;
+import javax.jms.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -64,10 +53,19 @@ public class TestJmsService {
 	}
 	
 	@Test
-	public void start_createsConsumer() throws JMSException {
+	public void start_createsConsumer_ifMessageHandlerSet() throws JMSException {
+		getService().setMessageHandler(messageHandler);
+		
 		getService().start();
 		
 		verify(session).createConsumer(topic);
+	}
+	
+	@Test
+	public void start_doesNotCreateConsumer_ifNoMessageHandlerSet() throws JMSException {
+		getService().start();
+		
+		verify(session, never()).createConsumer(topic);
 	}
 	
 	@Test

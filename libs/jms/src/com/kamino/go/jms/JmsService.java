@@ -1,13 +1,6 @@
 package com.kamino.go.jms;
 
-import javax.jms.Connection;
-import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageConsumer;
-import javax.jms.MessageListener;
-import javax.jms.MessageProducer;
-import javax.jms.Session;
+import javax.jms.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,12 +23,10 @@ public class JmsService implements MessageListener {
 	public JmsService(
 			Jms jms, 
 			Connection connection, 
-			MessageCodec codec,
-			MessageHandler messageHandler) {
+			MessageCodec codec) {
 		this.jms = jms;
 		this.connection = connection;
 		this.codec = codec;
-		this.messageHandler = messageHandler;
 	}
 	
 	private Jms jms() {
@@ -54,6 +45,11 @@ public class JmsService implements MessageListener {
 		return messageHandler;
 	}
 
+	@Inject(optional = true)
+	public void setMessageHandler(MessageHandler messageHandler) {
+		this.messageHandler = messageHandler;
+	}
+
 	public void start() {
 		startConnection();
 		startConsumer();
@@ -69,6 +65,10 @@ public class JmsService implements MessageListener {
 	}
 	
 	private void startConsumer() {
+		if(getMessageHandler() == null) {
+			return;
+		}
+		
 		try {
 			Session session = createSession();
 			MessageConsumer consumer = createConsumer(session);

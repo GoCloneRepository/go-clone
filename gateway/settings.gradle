@@ -1,0 +1,8 @@
+rootProject.name = 'gateway'
+
+include(':common', ':jms', ':rest', ':guice-utils')
+
+project(':common').projectDir = new File(settingsDir, '../libs/common')
+project(':jms').projectDir = new File(settingsDir, '../libs/jms')
+project(':rest').projectDir = new File(settingsDir, '../libs/rest')
+project(':guice-utils').projectDir = new File(settingsDir, '../libs/guice-utils')
